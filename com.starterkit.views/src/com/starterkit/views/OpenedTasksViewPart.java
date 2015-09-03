@@ -12,6 +12,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.events.KeyEvent;
@@ -20,6 +21,9 @@ import com.starterkit.views.dataprovider.DataProvider;
 import com.starterkit.views.dataprovider.impl.DataProviderImpl;
 import com.starterkit.views.filter.TaskFilter;
 import com.starterkit.views.models.Task;
+
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class OpenedTasksViewPart extends ViewPart {
 	private Text textTaskName;
@@ -48,6 +52,28 @@ public class OpenedTasksViewPart extends ViewPart {
 		
 		Button btnSearch = new Button(parent, SWT.NONE);
 		btnSearch.setText("Search");
+		new Label(parent, SWT.NONE);
+		
+		Button btnClose = new Button(parent, SWT.NONE);
+		btnClose.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				/*
+				 * Get selected task's id.
+				 */
+				IStructuredSelection selection = (IStructuredSelection) tableViewer.getSelection();
+				Task task = (Task) selection.getFirstElement();
+				Long id = task.getId();
+				
+				/*
+				 * Close selected task and refresh table.
+				 */
+				dataProvider.closeTask(id);
+				tableViewer.refresh();
+			}
+		});
+		btnClose.setText("Close");
 		new Label(parent, SWT.NONE);
 		
 		createTasksTable(parent);

@@ -35,4 +35,18 @@ public class DataProviderImpl implements DataProvider {
 		
 		return result;
 	}
+
+	@Override
+	public void closeTask(Long id) {
+		for(Task t : tasks) {
+			if(t.getId() == id) {
+				t.setStatus(TaskStatus.CLOSED);
+			}
+		}
+		
+		/*
+		 * For Java 8:
+		 */
+		// tasks.removeIf(t -> t.getId() == id);
+	}
 }
