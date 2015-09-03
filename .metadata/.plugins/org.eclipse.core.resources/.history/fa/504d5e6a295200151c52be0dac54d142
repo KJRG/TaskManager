@@ -1,0 +1,5 @@
+package com.starterkit.views.models;
+
+public class Task {
+
+}

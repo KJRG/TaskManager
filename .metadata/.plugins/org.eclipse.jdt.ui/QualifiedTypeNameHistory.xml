@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.eclipse.swt.events.SelectionListener"/>
+<fullyQualifiedTypeName name="com.starterkit3.views.models.Person"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.databinding.swt.WidgetProperties"/>
+<fullyQualifiedTypeName name="org.eclipse.core.databinding.beans.BeanProperties"/>
+<fullyQualifiedTypeName name="org.eclipse.core.databinding.DataBindingContext"/>
+<fullyQualifiedTypeName name="org.eclipse.core.databinding.observable.value.IObservableValue"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.MessageDialog"/>
+</qualifiedTypeNameHistroy>

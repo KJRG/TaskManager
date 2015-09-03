@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Sample Category"
+            id="com.starterkit3.views">
+      </category>
+      <view
+            name="Sample View"
+            icon="icons/sample.gif"
+            category="com.starterkit3.views"
+            class="com.starterkit3.views.views.SampleView"
+            id="com.starterkit3.views.views.SampleView">
+      </view>
+      <view
+            class="com.starterkit3.views.ViewPart3"
+            id="com.starterkit3.views.view3"
+            name="My view"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.starterkit3.views.perspective2">
+         <view
+               ratio="0.75"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="top"
+               id="com.starterkit3.views.views.SampleView">
+         </view>
+         <view
+               id="com.starterkit3.views.view3"
+               minimized="false"
+               ratio="0.2"
+               relationship="right"
+               relative="com.starterkit3.views.views.SampleView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.starterkit3.views.PerspectiveFactory2"
+            id="com.starterkit3.views.perspective2"
+            name="Starterkit 3">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <command
+               commandId="com.starterkit3.views.command3"
+               label="Hellllo"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.starterkit3.views.command3"
+            name="My action">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.starterkit3.views.handlers.MyAction"
+            commandId="com.starterkit3.views.command3">
+      </handler>
+   </extension>
+
+</plugin>

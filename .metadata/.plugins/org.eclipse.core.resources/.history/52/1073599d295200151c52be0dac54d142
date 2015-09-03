@@ -1,0 +1,11 @@
+package com.starterkit.views.models;
+
+import org.eclipse.swt.widgets.DateTime;
+
+public class Task {
+	private Long id;
+	private String name;
+	private TaskStatus status;
+	private DateTime startDate;
+	private DateTime dueDate;
+}

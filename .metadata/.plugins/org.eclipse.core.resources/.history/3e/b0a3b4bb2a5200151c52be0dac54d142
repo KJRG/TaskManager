@@ -1,0 +1,53 @@
+package com.starterkit.views.models;
+
+import org.eclipse.swt.widgets.DateTime;
+
+public class Task extends ModelObject {
+	private Long id;
+	private String description;
+	private TaskStatus status;
+	private DateTime dueDate;
+
+	public Task() {
+
+	}
+
+	public Task(Long id, String name, TaskStatus status, DateTime dueDate) {
+		this.id = id;
+		this.description = name;
+		this.status = status;
+		this.dueDate = dueDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String name) {
+		this.description = name;
+	}
+
+	public TaskStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TaskStatus status) {
+		this.status = status;
+	}
+
+	public DateTime getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(DateTime dueDate) {
+		this.dueDate = dueDate;
+	}
+}

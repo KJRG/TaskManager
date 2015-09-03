@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Basic Category"
+            id="com.starterkit.views">
+      </category>
+      <view
+            name="Basic View"
+            icon="icons/sample.gif"
+            category="com.starterkit.views"
+            class="com.starterkit.views.views.BasicView"
+            id="com.starterkit.views.views.BasicView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.starterkit.views.TasksPerspectiveFactory"
+            id="com.starterkit.views.TasksPerspective"
+            name="Tasks">
+      </perspective>
+   </extension>
+
+</plugin>
