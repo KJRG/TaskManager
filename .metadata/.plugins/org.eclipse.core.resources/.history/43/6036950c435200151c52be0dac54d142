@@ -1,0 +1,5 @@
+package com.starterkit.views.filter;
+
+public class TaskFilter {
+
+}

@@ -1,8 +1,7 @@
 package com.starterkit.views;
 
-import javax.swing.table.TableColumn;
-
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -15,16 +14,21 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.swt.events.KeyEvent;
 
 import com.starterkit.views.dataprovider.DataProvider;
 import com.starterkit.views.dataprovider.impl.DataProviderImpl;
+import com.starterkit.views.filter.TaskFilter;
 import com.starterkit.views.models.Task;
 
 public class OpenedTasksViewPart extends ViewPart {
 	private Text textTaskName;
 	private Table tasksTable;
+	private TableViewer tableViewer;
 	
 	private DataProvider dataProvider = new DataProviderImpl();
+	
+	private TaskFilter taskFilter = new TaskFilter();
 
 	public OpenedTasksViewPart() {
 		
@@ -47,11 +51,26 @@ public class OpenedTasksViewPart extends ViewPart {
 		new Label(parent, SWT.NONE);
 		
 		createTasksTable(parent);
+		
+		textTaskName.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				taskFilter.setSearchString(textTaskName.getText());
+				tableViewer.refresh();
+			}
+			
+			@Override
+			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
+			}
+		});
+		
+		tableViewer.addFilter(taskFilter);
 	}
 	
 	private void createTasksTable(Composite parent) {
 
-		TableViewer tableViewer = new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);
+		tableViewer = new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);
 		tasksTable = tableViewer.getTable();
 		createColumns(parent, tableViewer);
 		
@@ -133,7 +152,7 @@ public class OpenedTasksViewPart extends ViewPart {
 
 	@Override
 	public void setFocus() {
-
+		tableViewer.getControl().setFocus();
 	}
 
 }
