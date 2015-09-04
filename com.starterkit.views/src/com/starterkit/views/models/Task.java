@@ -1,6 +1,6 @@
 package com.starterkit.views.models;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Task extends ModelObject {
 	private Long id;

@@ -16,6 +16,7 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import com.starterkit.views.dataprovider.DataProvider;
 import com.starterkit.views.dataprovider.impl.DataProviderImpl;
+import com.starterkit.views.mapper.DateMapper;
 import com.starterkit.views.models.Task;
 import com.starterkit.views.models.TaskStatus;
 
@@ -57,8 +58,7 @@ public class AddTaskViewPart extends ViewPart {
 					return;
 				}
 
-				Date dueDate = new Date(dateTime.getYear() - 1900,
-						dateTime.getMonth(), dateTime.getDay());
+				Date dueDate = Date.valueOf(DateMapper.getDateString(dateTime));
 				Task task = new Task(null, taskDescriptionText.getText(),
 						TaskStatus.OPENED, dueDate);
 

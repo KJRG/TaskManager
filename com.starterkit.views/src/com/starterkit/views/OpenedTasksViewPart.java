@@ -1,5 +1,7 @@
 package com.starterkit.views;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,6 +37,8 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 	private DataProviderImpl dataProvider = DataProviderImpl.getInstance();
 
 	private TaskFilter taskFilter = new TaskFilter();
+	
+	private DateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 
 	public OpenedTasksViewPart() {
 
@@ -188,7 +192,7 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 			@Override
 			public String getText(Object element) {
 				Task t = (Task) element;
-				return t.getDueDate().toString();
+				return dateFormatter.format(t.getDueDate());
 			}
 		});
 	}
