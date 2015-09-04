@@ -93,6 +93,11 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 				 */
 				IStructuredSelection selection = (IStructuredSelection) tableViewer
 						.getSelection();
+				
+				if(selection == null || selection.isEmpty()) {
+					return;
+				}
+				
 				Task task = (Task) selection.getFirstElement();
 				Long id = task.getId();
 

@@ -33,16 +33,8 @@ public class DataProviderImpl extends Observable implements DataProvider {
 	}
 
 	@Override
-	public Collection<Task> findTasks(String description) {
-		List<Task> result = new ArrayList<>();
-		
-		for(Task t : tasks) {
-			if(t.getDescription().toLowerCase().startsWith(description.toLowerCase())) {
-				result.add(t);
-			}
-		}
-		
-		return result;
+	public Collection<Task> findAllTasks() {
+		return tasks;
 	}
 
 	@Override

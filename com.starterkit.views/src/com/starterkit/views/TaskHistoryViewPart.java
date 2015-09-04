@@ -74,7 +74,7 @@ public class TaskHistoryViewPart extends ViewPart implements Observer {
 		createColumns(parent, tableViewer);
 
 		tableViewer.setContentProvider(new ArrayContentProvider());
-		tableViewer.setInput(dataProvider.findTasks(""));
+		tableViewer.setInput(dataProvider.findAllTasks());
 		getSite().setSelectionProvider(tableViewer);
 
 		tasksTable.setHeaderVisible(true);
@@ -162,7 +162,7 @@ public class TaskHistoryViewPart extends ViewPart implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		tableViewer.setInput(dataProvider.findTasks(""));
+		tableViewer.setInput(dataProvider.findAllTasks());
 		tableViewer.refresh();
 	}
 
