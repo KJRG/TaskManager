@@ -6,5 +6,6 @@ import com.starterkit.views.models.Task;
 
 public interface DataProvider {
 	Collection<Task> findTasks(String description);
+	Task addTask(Task task);
 	void closeTask(Long id);
 }

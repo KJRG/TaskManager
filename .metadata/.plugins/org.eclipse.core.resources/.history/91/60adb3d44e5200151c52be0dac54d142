@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Basic Category"
+            id="com.starterkit.views">
+      </category>
+      <view
+            name="Basic View"
+            icon="icons/sample.gif"
+            category="com.starterkit.views"
+            class="com.starterkit.views.views.BasicView"
+            id="com.starterkit.views.views.BasicView">
+      </view>
+      <view
+            class="com.starterkit.views.OpenedTasksViewPart"
+            id="com.starterkit.views.OpenedTasksView"
+            name="Opened tasks"
+            restorable="true">
+      </view>
+      <view
+            class="com.starterkit.views.AddTaskViewPart"
+            id="com.starterkit.views.AddTaskView"
+            name="Add task"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.starterkit.views.TasksPerspective">
+         <view
+               id="com.starterkit.views.OpenedTasksView"
+               minimized="false"
+               ratio="0.5"
+               relationship="left"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+         <view
+               id="com.starterkit.views.AddTaskView"
+               minimized="false"
+               ratio="0.5"
+               relationship="left"
+               relative="com.starterkit.views.OpenedTasksView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.starterkit.views.TasksPerspectiveFactory"
+            id="com.starterkit.views.TasksPerspective"
+            name="Tasks">
+      </perspective>
+   </extension>
+
+</plugin>

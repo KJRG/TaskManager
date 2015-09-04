@@ -1,5 +1,8 @@
 package com.starterkit.views;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
@@ -17,7 +20,6 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.events.KeyEvent;
 
-import com.starterkit.views.dataprovider.DataProvider;
 import com.starterkit.views.dataprovider.impl.DataProviderImpl;
 import com.starterkit.views.filter.TaskFilter;
 import com.starterkit.views.models.Task;
@@ -25,47 +27,75 @@ import com.starterkit.views.models.Task;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class OpenedTasksViewPart extends ViewPart {
+public class OpenedTasksViewPart extends ViewPart implements Observer {
 	private Text textTaskName;
 	private Table tasksTable;
 	private TableViewer tableViewer;
-	
-	private DataProvider dataProvider = new DataProviderImpl();
-	
+
+	private DataProviderImpl dataProvider = DataProviderImpl.getInstance();
+
 	private TaskFilter taskFilter = new TaskFilter();
 
 	public OpenedTasksViewPart() {
-		
+
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new GridLayout(2, false));
-		
+
+		/*
+		 * Task name label.
+		 */
 		Label lblTaskName = new Label(parent, SWT.NONE);
-		lblTaskName.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblTaskName.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
+				false, 1, 1));
 		lblTaskName.setText("Task name:");
-		
+
+		/*
+		 * Task name text field.
+		 */
 		textTaskName = new Text(parent, SWT.BORDER);
-		textTaskName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		textTaskName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false, 1, 1));
 		new Label(parent, SWT.NONE);
-		
+
+		textTaskName.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				taskFilter.setSearchString(textTaskName.getText());
+				tableViewer.refresh();
+			}
+
+			@Override
+			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
+			}
+		});
+
+		/*
+		 * Search button.
+		 */
 		Button btnSearch = new Button(parent, SWT.NONE);
 		btnSearch.setText("Search");
 		new Label(parent, SWT.NONE);
-		
+
+		/*
+		 * Close task button.
+		 */
 		Button btnClose = new Button(parent, SWT.NONE);
 		btnClose.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
+
 				/*
 				 * Get selected task's id.
 				 */
-				IStructuredSelection selection = (IStructuredSelection) tableViewer.getSelection();
+				IStructuredSelection selection = (IStructuredSelection) tableViewer
+						.getSelection();
 				Task task = (Task) selection.getFirstElement();
 				Long id = task.getId();
-				
+
 				/*
 				 * Close selected task and refresh table.
 				 */
@@ -75,49 +105,39 @@ public class OpenedTasksViewPart extends ViewPart {
 		});
 		btnClose.setText("Close");
 		new Label(parent, SWT.NONE);
-		
+
 		createTasksTable(parent);
-		
-		textTaskName.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				taskFilter.setSearchString(textTaskName.getText());
-				tableViewer.refresh();
-			}
-			
-			@Override
-			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-			}
-		});
-		
+
 		tableViewer.addFilter(taskFilter);
+
+		DataProviderImpl.getInstance().addObserver(this);
 	}
-	
+
 	private void createTasksTable(Composite parent) {
 
 		tableViewer = new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);
 		tasksTable = tableViewer.getTable();
 		createColumns(parent, tableViewer);
-		
+
 		tableViewer.setContentProvider(new ArrayContentProvider());
 		tableViewer.setInput(dataProvider.findTasks(""));
 		getSite().setSelectionProvider(tableViewer);
-		
+
 		tasksTable.setHeaderVisible(true);
 		tasksTable.setLinesVisible(true);
-		
-		tasksTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		tasksTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
+				1, 1));
 	}
-	
+
 	private void createColumns(final Composite parent, final TableViewer viewer) {
-		
+
 		/*
 		 * Create id column.
 		 */
 		TableViewerColumn idColumn = createViewerColumn(viewer, "Id", 30);
 		idColumn.setLabelProvider(new ColumnLabelProvider() {
-			
+
 			@Override
 			public String getText(Object element) {
 				Task t = (Task) element;
@@ -128,9 +148,10 @@ public class OpenedTasksViewPart extends ViewPart {
 		/*
 		 * Create description column.
 		 */
-		TableViewerColumn descriptionColumn = createViewerColumn(viewer, "Description", 150);
+		TableViewerColumn descriptionColumn = createViewerColumn(viewer,
+				"Description", 150);
 		descriptionColumn.setLabelProvider(new ColumnLabelProvider() {
-			
+
 			@Override
 			public String getText(Object element) {
 				Task t = (Task) element;
@@ -141,9 +162,10 @@ public class OpenedTasksViewPart extends ViewPart {
 		/*
 		 * Create status column.
 		 */
-		TableViewerColumn statusColumn = createViewerColumn(viewer, "Status", 70);
+		TableViewerColumn statusColumn = createViewerColumn(viewer, "Status",
+				70);
 		statusColumn.setLabelProvider(new ColumnLabelProvider() {
-			
+
 			@Override
 			public String getText(Object element) {
 				Task t = (Task) element;
@@ -154,31 +176,40 @@ public class OpenedTasksViewPart extends ViewPart {
 		/*
 		 * Create due date column.
 		 */
-		TableViewerColumn dueDateColumn = createViewerColumn(viewer, "Due date", 70);
+		TableViewerColumn dueDateColumn = createViewerColumn(viewer,
+				"Due date", 80);
 		dueDateColumn.setLabelProvider(new ColumnLabelProvider() {
-			
+
 			@Override
 			public String getText(Object element) {
-//				Task t = (Task) element;
-				return "Data";
+				Task t = (Task) element;
+				return t.getDueDate().toString();
 			}
 		});
 	}
-	
-	private TableViewerColumn createViewerColumn(TableViewer viewer, String title, int bound) {
-		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
-		
+
+	private TableViewerColumn createViewerColumn(TableViewer viewer,
+			String title, int bound) {
+		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
+				SWT.NONE);
+
 		viewerColumn.getColumn().setText(title);
 		viewerColumn.getColumn().setWidth(bound);
 		viewerColumn.getColumn().setResizable(true);
 		viewerColumn.getColumn().setMoveable(true);
-		
+
 		return viewerColumn;
 	}
 
 	@Override
 	public void setFocus() {
 		tableViewer.getControl().setFocus();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		tableViewer.setInput(dataProvider.findTasks(""));
+		tableViewer.refresh();
 	}
 
 }

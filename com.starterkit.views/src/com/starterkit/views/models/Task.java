@@ -1,14 +1,14 @@
 package com.starterkit.views.models;
 
-import org.eclipse.swt.widgets.DateTime;
+import java.util.Date;
 
 public class Task extends ModelObject {
 	private Long id;
 	private String description;
 	private TaskStatus status;
-	private DateTime dueDate;
+	private Date dueDate;
 
-	public Task(Long id, String name, TaskStatus status, DateTime dueDate) {
+	public Task(Long id, String name, TaskStatus status, Date dueDate) {
 		this.id = id;
 		this.description = name;
 		this.status = status;
@@ -39,11 +39,11 @@ public class Task extends ModelObject {
 		firePropertyChange("status", this.status, this.status = status);
 	}
 
-	public DateTime getDueDate() {
+	public Date getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(DateTime dueDate) {
+	public void setDueDate(Date dueDate) {
 		firePropertyChange("dueDate", this.dueDate, this.dueDate = dueDate);
 	}
 }
