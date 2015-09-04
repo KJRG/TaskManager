@@ -172,7 +172,7 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 		 * Create status column.
 		 */
 		TableViewerColumn statusColumn = createViewerColumn(viewer, "Status",
-				70);
+				60);
 		statusColumn.setLabelProvider(new ColumnLabelProvider() {
 
 			@Override

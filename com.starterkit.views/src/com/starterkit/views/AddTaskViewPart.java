@@ -60,7 +60,7 @@ public class AddTaskViewPart extends ViewPart {
 
 				Date dueDate = Date.valueOf(DateMapper.getDateString(dateTime));
 				Task task = new Task(null, taskDescriptionText.getText(),
-						TaskStatus.OPENED, dueDate);
+						TaskStatus.OPEN, dueDate);
 
 				dataProvider.addTask(task);
 			}

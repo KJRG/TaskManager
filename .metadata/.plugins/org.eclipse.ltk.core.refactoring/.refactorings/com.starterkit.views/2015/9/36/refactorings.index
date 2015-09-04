@@ -16,3 +16,4 @@
 1441352863302	Rename field 'table'
 1441353200343	Rename field 'text'
 1441358003115	Rename method 'findTasks'
+1441364019119	Rename enum constant 'OPENED'

@@ -25,11 +25,11 @@ public class DataProviderImpl extends Observable implements DataProvider {
 		 * Initialize the list with sample tasks.
 		 */
 		
-		tasks.add(new Task(1L, "Task 1", TaskStatus.OPENED, Date.valueOf("2015-09-07")));
-		tasks.add(new Task(2L, "Task 2", TaskStatus.OPENED, Date.valueOf("2015-09-08")));
-		tasks.add(new Task(3L, "Task 3", TaskStatus.OPENED, Date.valueOf("2015-09-18")));
-		tasks.add(new Task(4L, "Task 4", TaskStatus.OPENED, Date.valueOf("2015-09-21")));
-		tasks.add(new Task(5L, "Task 5", TaskStatus.OPENED, Date.valueOf("2015-11-08")));
+		tasks.add(new Task(1L, "Task 1", TaskStatus.OPEN, Date.valueOf("2015-09-07")));
+		tasks.add(new Task(2L, "Task 2", TaskStatus.OPEN, Date.valueOf("2015-09-08")));
+		tasks.add(new Task(3L, "Task 3", TaskStatus.OPEN, Date.valueOf("2015-09-18")));
+		tasks.add(new Task(4L, "Task 4", TaskStatus.OPEN, Date.valueOf("2015-09-21")));
+		tasks.add(new Task(5L, "Task 5", TaskStatus.OPEN, Date.valueOf("2015-11-08")));
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class DataProviderImpl extends Observable implements DataProvider {
 		List<Task> result = new ArrayList<>();
 		
 		for(Task t : tasks) {
-			if(t.getStatus() == TaskStatus.OPENED) {
+			if(t.getStatus() == TaskStatus.OPEN) {
 				result.add(t);
 			}
 		}
