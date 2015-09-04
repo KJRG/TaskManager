@@ -46,19 +46,6 @@ public class DataProviderImpl extends Observable implements DataProvider {
 	}
 
 	@Override
-	public Collection<Task> findOpenedTasks() {
-		List<Task> result = new ArrayList<>();
-		
-		for(Task t : tasks) {
-			if(t.getStatus() == TaskStatus.OPENED) {
-				result.add(t);
-			}
-		}
-		
-		return result;
-	}
-
-	@Override
 	public Task addTask(Task task) {
 		/*
 		 * Find next task id.
@@ -105,6 +92,5 @@ public class DataProviderImpl extends Observable implements DataProvider {
 		 */
 		// tasks.removeIf(t -> t.getId() == id);
 	}
-
 
 }

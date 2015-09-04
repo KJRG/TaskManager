@@ -208,7 +208,7 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		tableViewer.setInput(dataProvider.findOpenedTasks());
+		tableViewer.setInput(dataProvider.findTasks(""));
 		tableViewer.refresh();
 	}
 
