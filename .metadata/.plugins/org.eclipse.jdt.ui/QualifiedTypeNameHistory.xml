@@ -6,7 +6,6 @@
 <fullyQualifiedTypeName name="org.eclipse.core.databinding.beans.BeanProperties"/>
 <fullyQualifiedTypeName name="org.eclipse.core.databinding.DataBindingContext"/>
 <fullyQualifiedTypeName name="org.eclipse.core.databinding.observable.value.IObservableValue"/>
-<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.MessageDialog"/>
 <fullyQualifiedTypeName name="com.starterkit.views.models.ModelObject"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
 <fullyQualifiedTypeName name="java.util.List"/>
@@ -17,7 +16,6 @@
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.TableViewerColumn"/>
 <fullyQualifiedTypeName name="javax.swing.table.TableColumn"/>
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.ColumnLabelProvider"/>
-<fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.ViewerFilter"/>
 <fullyQualifiedTypeName name="com.starterkit.views.filter.TaskFilter"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
@@ -27,10 +25,16 @@
 <fullyQualifiedTypeName name="org.eclipse.swt.widgets.MessageBox"/>
 <fullyQualifiedTypeName name="org.eclipse.swt.SWT"/>
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.IStructuredSelection"/>
-<fullyQualifiedTypeName name="com.starterkit.views.dataprovider.impl.DataProviderImpl"/>
 <fullyQualifiedTypeName name="com.starterkit.views.dataprovider.DataProvider"/>
-<fullyQualifiedTypeName name="com.starterkit.views.models.TaskStatus"/>
 <fullyQualifiedTypeName name="org.eclipse.swt.widgets.DateTime"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.starterkit.views.models.Task"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.MessageDialog"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.IDialogConstants"/>
+<fullyQualifiedTypeName name="java.util.Observable"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="java.util.Observer"/>
+<fullyQualifiedTypeName name="com.starterkit.views.dataprovider.impl.DataProviderImpl"/>
+<fullyQualifiedTypeName name="com.starterkit.views.models.TaskStatus"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
 </qualifiedTypeNameHistroy>

@@ -13,3 +13,5 @@
 1441291290552	Rename method 'removeTask'
 1441294203235	Rename local variable 'maxTaskId'
 1441294277621	Rename field 'text'
+1441352863302	Rename field 'table'
+1441353200343	Rename field 'text'

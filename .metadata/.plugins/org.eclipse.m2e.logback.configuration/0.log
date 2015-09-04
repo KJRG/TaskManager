@@ -13,3 +13,6 @@
 2015-09-03 17:40:30,119 [Stop Help Server] WARN  o.e.j.util.thread.QueuedThreadPool - 1 threads could not be stopped
 2015-09-04 08:47:02,400 [Start Help Server] INFO  org.eclipse.jetty.server.Server - jetty-8.1.16.v20140903
 2015-09-04 08:47:02,463 [Start Help Server] INFO  o.e.jetty.server.AbstractConnector - Started SelectChannelConnector@127.0.0.1:63867
+2015-09-04 10:12:45,529 [Stop Help Server] INFO  o.e.j.server.handler.ContextHandler - stopped o.e.j.s.ServletContextHandler{/help,null}
+2015-09-04 10:26:00,128 [Start Help Server] INFO  org.eclipse.jetty.server.Server - jetty-8.1.16.v20140903
+2015-09-04 10:26:00,190 [Start Help Server] INFO  o.e.jetty.server.AbstractConnector - Started SelectChannelConnector@127.0.0.1:49614
