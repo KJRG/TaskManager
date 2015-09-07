@@ -10,7 +10,6 @@
 <fullyQualifiedTypeName name="java.util.Collection"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.ArrayContentProvider"/>
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.TableViewerColumn"/>
@@ -22,19 +21,24 @@
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.TableViewer"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyAdapter"/>
 <fullyQualifiedTypeName name="org.eclipse.swt.events.KeyListener"/>
-<fullyQualifiedTypeName name="org.eclipse.swt.widgets.MessageBox"/>
 <fullyQualifiedTypeName name="org.eclipse.swt.SWT"/>
 <fullyQualifiedTypeName name="org.eclipse.jface.viewers.IStructuredSelection"/>
 <fullyQualifiedTypeName name="com.starterkit.views.dataprovider.DataProvider"/>
 <fullyQualifiedTypeName name="org.eclipse.swt.widgets.DateTime"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.starterkit.views.models.Task"/>
-<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.MessageDialog"/>
 <fullyQualifiedTypeName name="org.eclipse.jface.dialogs.IDialogConstants"/>
 <fullyQualifiedTypeName name="java.util.Observable"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="java.util.Observer"/>
 <fullyQualifiedTypeName name="com.starterkit.views.dataprovider.impl.DataProviderImpl"/>
-<fullyQualifiedTypeName name="com.starterkit.views.models.TaskStatus"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="com.starterkit.views.mapper.DateMapper"/>
+<fullyQualifiedTypeName name="javax.swing.text.DateFormatter"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.MessageDialog"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.MessageBox"/>
+<fullyQualifiedTypeName name="com.starterkit.views.models.TaskStatus"/>
 </qualifiedTypeNameHistroy>

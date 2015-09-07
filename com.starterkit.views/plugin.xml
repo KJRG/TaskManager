@@ -41,14 +41,14 @@
          <view
                id="com.starterkit.views.OpenedTasksView"
                minimized="false"
-               ratio="0.2"
-               relationship="right"
+               ratio="0.9"
+               relationship="left"
                relative="org.eclipse.ui.editorss">
          </view>
          <view
                id="com.starterkit.views.AddTaskView"
                minimized="false"
-               ratio="0.7"
+               ratio="0.6"
                relationship="right"
                relative="com.starterkit.views.OpenedTasksView">
          </view>
@@ -58,6 +58,7 @@
          <view
                id="com.starterkit.views.TaskHistoryView"
                minimized="false"
+               ratio="0.95"
                relationship="left"
                relative="org.eclipse.ui.editorss">
          </view>
