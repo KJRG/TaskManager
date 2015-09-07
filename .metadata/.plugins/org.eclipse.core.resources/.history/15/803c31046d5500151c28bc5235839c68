@@ -65,6 +65,7 @@ public class OpenedTasksViewPart extends ViewPart {
 		textTaskName = new Text(parent, SWT.BORDER);
 		textTaskName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false, 1, 1));
+		new Label(parent, SWT.NONE);
 
 		textTaskName.addKeyListener(new KeyListener() {
 
@@ -78,6 +79,12 @@ public class OpenedTasksViewPart extends ViewPart {
 			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 			}
 		});
+
+		/*
+		 * Search button.
+		 */
+		Button btnSearch = new Button(parent, SWT.NONE);
+		btnSearch.setText("Search");
 		new Label(parent, SWT.NONE);
 
 		/*
