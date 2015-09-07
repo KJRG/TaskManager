@@ -28,7 +28,7 @@ public class TaskFilter extends ViewerFilter {
 		}
 		
 		Task task = (Task) element;
-		if(task.getDescription().toLowerCase().startsWith(searchString.toLowerCase())) {
+		if(task.getDescription().toLowerCase().contains(searchString.toLowerCase())) {
 			return true;
 		}
 		

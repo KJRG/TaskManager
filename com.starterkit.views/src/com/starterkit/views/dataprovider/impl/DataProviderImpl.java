@@ -4,13 +4,15 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Observable;
+import java.util.ListIterator;
+
+import org.eclipse.core.databinding.observable.list.WritableList;
 
 import com.starterkit.views.dataprovider.DataProvider;
 import com.starterkit.views.models.Task;
 import com.starterkit.views.models.TaskStatus;
 
-public class DataProviderImpl extends Observable implements DataProvider {
+public class DataProviderImpl implements DataProvider {
 	
 	private static DataProviderImpl instance = new DataProviderImpl();
 	
@@ -18,9 +20,14 @@ public class DataProviderImpl extends Observable implements DataProvider {
 		return instance;
 	}
 	
-	private List<Task> tasks = new ArrayList<>();
+	private List<Task> tasks;
+	private WritableList writable;
 	
 	private DataProviderImpl() {
+		
+		tasks = new ArrayList<>();
+		writable = new WritableList(tasks, Task.class);
+		
 		/*
 		 * Initialize the list with sample tasks.
 		 */
@@ -35,6 +42,10 @@ public class DataProviderImpl extends Observable implements DataProvider {
 	@Override
 	public Collection<Task> findAllTasks() {
 		return tasks;
+	}
+	
+	public WritableList getWritable() {
+		return writable;
 	}
 
 	@Override
@@ -67,30 +78,21 @@ public class DataProviderImpl extends Observable implements DataProvider {
 		 * Set the id and add task.
 		 */
 		task.setId(nextTaskId);
-		tasks.add(task);
-		
-		/*
-		 * Notify observers.
-		 */
-		setChanged();
-		notifyObservers();
+		writable.add(task);
 		
 		return task;
 	}
 
 	@Override
 	public void closeTask(Long id) {
-		for(Task t : tasks) {
+		ListIterator<Task> iterator = writable.listIterator();
+		while(iterator.hasNext()) {
+			Task t = iterator.next();
 			if(t.getId() == id) {
 				t.setStatus(TaskStatus.CLOSED);
+				break;
 			}
 		}
-		
-		/*
-		 * Notify observers.
-		 */
-		setChanged();
-		notifyObservers();
 		
 		/*
 		 * For Java 8:
@@ -98,5 +100,15 @@ public class DataProviderImpl extends Observable implements DataProvider {
 		// tasks.removeIf(t -> t.getId() == id);
 	}
 
-
+	@Override
+	public void removeTask(Long id) {
+		ListIterator<Task> iterator = writable.listIterator();
+		while(iterator.hasNext()) {
+			Task t = iterator.next();
+			if(t.getId() == id) {
+				writable.remove(t);
+				break;
+			}
+		}
+	}
 }

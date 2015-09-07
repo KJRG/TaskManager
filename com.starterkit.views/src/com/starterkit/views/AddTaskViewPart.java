@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-import com.starterkit.views.dataprovider.DataProvider;
 import com.starterkit.views.dataprovider.impl.DataProviderImpl;
 import com.starterkit.views.mapper.DateMapper;
 import com.starterkit.views.models.Task;
@@ -23,7 +22,7 @@ import com.starterkit.views.models.TaskStatus;
 public class AddTaskViewPart extends ViewPart {
 	private Text taskDescriptionText;
 
-	private DataProvider dataProvider = DataProviderImpl.getInstance();
+	private DataProviderImpl dataProvider = DataProviderImpl.getInstance();
 
 	public AddTaskViewPart() {
 
@@ -47,7 +46,7 @@ public class AddTaskViewPart extends ViewPart {
 
 		final DateTime dateTime = new DateTime(parent, SWT.BORDER);
 		new Label(parent, SWT.NONE);
-
+		
 		Button btnAddTask = new Button(parent, SWT.NONE);
 		btnAddTask.addSelectionListener(new SelectionAdapter() {
 

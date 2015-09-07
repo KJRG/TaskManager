@@ -2,8 +2,6 @@ package com.starterkit.views;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Observable;
-import java.util.Observer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyListener;
@@ -15,7 +13,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.observable.list.WritableList;
+import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.databinding.viewers.ViewerSupport;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -29,15 +30,17 @@ import com.starterkit.views.models.Task;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class OpenedTasksViewPart extends ViewPart implements Observer {
+public class OpenedTasksViewPart extends ViewPart {
 	private Text textTaskName;
 	private Table tasksTable;
 	private TableViewer tableViewer;
 
+	private WritableList input;
+
 	private DataProviderImpl dataProvider = DataProviderImpl.getInstance();
 
 	private TaskFilter taskFilter = new TaskFilter();
-	
+
 	private DateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 
 	public OpenedTasksViewPart() {
@@ -97,19 +100,18 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 				 */
 				IStructuredSelection selection = (IStructuredSelection) tableViewer
 						.getSelection();
-				
-				if(selection == null || selection.isEmpty()) {
+
+				if (selection == null || selection.isEmpty()) {
 					return;
 				}
-				
+
 				Task task = (Task) selection.getFirstElement();
 				Long id = task.getId();
 
 				/*
-				 * Close selected task and refresh table.
+				 * Close selected task.
 				 */
 				dataProvider.closeTask(id);
-				tableViewer.refresh();
 			}
 		});
 		btnClose.setText("Close");
@@ -118,75 +120,32 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 		createTasksTable(parent);
 
 		tableViewer.addFilter(taskFilter);
-
-		DataProviderImpl.getInstance().addObserver(this);
 	}
 
 	private void createTasksTable(Composite parent) {
 
 		tableViewer = new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);
 		tasksTable = tableViewer.getTable();
-		createColumns(parent, tableViewer);
 
-		tableViewer.setContentProvider(new ArrayContentProvider());
-		tableViewer.setInput(dataProvider.findOpenedTasks());
+		createViewerColumn(tableViewer, "Id", 30);
+		createViewerColumn(tableViewer, "Description", 150);
+		createViewerColumn(tableViewer, "Status", 60);
+		TableViewerColumn dueDateColumn = createViewerColumn(tableViewer,
+				"Due date", 80);
+
+		tableViewer.setContentProvider(new ObservableListContentProvider());
+		input = DataProviderImpl.getInstance().getWritable();
+		ViewerSupport.bind(
+				tableViewer,
+				input,
+				BeanProperties.values(new String[] { "id", "description",
+						"status", "dueDate" }));
+
 		getSite().setSelectionProvider(tableViewer);
 
-		tasksTable.setHeaderVisible(true);
-		tasksTable.setLinesVisible(true);
-
-		tasksTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
-				1, 1));
-	}
-
-	private void createColumns(final Composite parent, final TableViewer viewer) {
-
 		/*
-		 * Create id column.
+		 * Set date formatting in due date column.
 		 */
-		TableViewerColumn idColumn = createViewerColumn(viewer, "Id", 30);
-		idColumn.setLabelProvider(new ColumnLabelProvider() {
-
-			@Override
-			public String getText(Object element) {
-				Task t = (Task) element;
-				return t.getId().toString();
-			}
-		});
-
-		/*
-		 * Create description column.
-		 */
-		TableViewerColumn descriptionColumn = createViewerColumn(viewer,
-				"Description", 150);
-		descriptionColumn.setLabelProvider(new ColumnLabelProvider() {
-
-			@Override
-			public String getText(Object element) {
-				Task t = (Task) element;
-				return t.getDescription();
-			}
-		});
-
-		/*
-		 * Create status column.
-		 */
-		TableViewerColumn statusColumn = createViewerColumn(viewer, "Status",
-				60);
-		statusColumn.setLabelProvider(new ColumnLabelProvider() {
-
-			@Override
-			public String getText(Object element) {
-				Task t = (Task) element;
-				return t.getStatus().toString();
-			}
-		});
-
-		/*
-		 * Create due date column.
-		 */
-		TableViewerColumn dueDateColumn = createViewerColumn(viewer,
-				"Due date", 80);
 		dueDateColumn.setLabelProvider(new ColumnLabelProvider() {
 
 			@Override
@@ -195,6 +154,12 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 				return dateFormatter.format(t.getDueDate());
 			}
 		});
+
+		tasksTable.setHeaderVisible(true);
+		tasksTable.setLinesVisible(true);
+
+		tasksTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
+				1, 1));
 	}
 
 	private TableViewerColumn createViewerColumn(TableViewer viewer,
@@ -214,11 +179,4 @@ public class OpenedTasksViewPart extends ViewPart implements Observer {
 	public void setFocus() {
 		tableViewer.getControl().setFocus();
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		tableViewer.setInput(dataProvider.findOpenedTasks());
-		tableViewer.refresh();
-	}
-
 }

@@ -9,4 +9,5 @@ public interface DataProvider {
 	Collection<Task> findOpenedTasks();
 	Task addTask(Task task);
 	void closeTask(Long id);
+	void removeTask(Long id);
 }
