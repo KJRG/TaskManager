@@ -4,6 +4,17 @@
 
    <extension
          point="org.eclipse.ui.views">
+      <category
+            name="Basic Category"
+            id="com.starterkit.views">
+      </category>
+      <view
+            name="Basic View"
+            icon="icons/sample.gif"
+            category="com.starterkit.views"
+            class="com.starterkit.views.views.BasicView"
+            id="com.starterkit.views.views.BasicView">
+      </view>
       <view
             class="com.starterkit.views.OpenedTasksViewPart"
             id="com.starterkit.views.OpenedTasksView"
