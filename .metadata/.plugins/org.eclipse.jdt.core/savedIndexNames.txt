@@ -1,6 +1,5 @@
 INDEX VERSION 1.127+C:\Users\kgalka\Desktop\starterKit\EclipseRCP\workspace\.metadata\.plugins\org.eclipse.jdt.core
 1023062481.index
-3453469045.index
 3155525188.index
 1602168217.index
 3750816268.index
