@@ -109,7 +109,7 @@ public class TaskHistoryViewPart extends ViewPart {
 		TableViewerColumn dueDateColumn = createViewerColumn(tableViewer, "Due date", 80);
 
 		tableViewer.setContentProvider(new ObservableListContentProvider());
-		input = DataProviderImpl.getInstance().getWritable();
+		input = DataProviderImpl.getInstance().getClosedTasksWritable();
 		ViewerSupport.bind(
 				tableViewer,
 				input,

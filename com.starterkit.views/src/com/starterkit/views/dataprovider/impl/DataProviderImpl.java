@@ -20,39 +20,47 @@ public class DataProviderImpl implements DataProvider {
 		return instance;
 	}
 	
-	private List<Task> tasks;
-	private WritableList writable;
+	private List<Task> openTasks;
+	private List<Task> closedTasks;
+	private WritableList openTasksWritable;
+	private WritableList closedTasksWritable;
 	
 	private DataProviderImpl() {
 		
-		tasks = new ArrayList<>();
-		writable = new WritableList(tasks, Task.class);
+		openTasks = new ArrayList<>();
+		closedTasks = new ArrayList<>();
+		openTasksWritable = new WritableList(openTasks, Task.class);
+		closedTasksWritable = new WritableList(closedTasks, Task.class);
 		
 		/*
 		 * Initialize the list with sample tasks.
 		 */
 		
-		tasks.add(new Task(1L, "Task 1", TaskStatus.OPEN, Date.valueOf("2015-09-07")));
-		tasks.add(new Task(2L, "Task 2", TaskStatus.OPEN, Date.valueOf("2015-09-08")));
-		tasks.add(new Task(3L, "Task 3", TaskStatus.OPEN, Date.valueOf("2015-09-18")));
-		tasks.add(new Task(4L, "Task 4", TaskStatus.OPEN, Date.valueOf("2015-09-21")));
-		tasks.add(new Task(5L, "Task 5", TaskStatus.OPEN, Date.valueOf("2015-11-08")));
+		openTasks.add(new Task(1L, "Task 1", TaskStatus.OPEN, Date.valueOf("2015-09-07")));
+		openTasks.add(new Task(2L, "Task 2", TaskStatus.OPEN, Date.valueOf("2015-09-08")));
+		openTasks.add(new Task(3L, "Task 3", TaskStatus.OPEN, Date.valueOf("2015-09-18")));
+		openTasks.add(new Task(4L, "Task 4", TaskStatus.OPEN, Date.valueOf("2015-09-21")));
+		openTasks.add(new Task(5L, "Task 5", TaskStatus.OPEN, Date.valueOf("2015-11-08")));
 	}
 
 	@Override
 	public Collection<Task> findAllTasks() {
-		return tasks;
+		return openTasks;
 	}
 	
-	public WritableList getWritable() {
-		return writable;
+	public WritableList getOpenTasksWritable() {
+		return openTasksWritable;
+	}
+
+	public WritableList getClosedTasksWritable() {
+		return closedTasksWritable;
 	}
 
 	@Override
 	public Collection<Task> findOpenedTasks() {
 		List<Task> result = new ArrayList<>();
 		
-		for(Task t : tasks) {
+		for(Task t : openTasks) {
 			if(t.getStatus() == TaskStatus.OPEN) {
 				result.add(t);
 			}
@@ -67,7 +75,7 @@ public class DataProviderImpl implements DataProvider {
 		 * Find next task id.
 		 */
 		Long nextTaskId = 0L;
-		for(Task t : tasks) {
+		for(Task t : openTasks) {
 			if(t.getId() > nextTaskId) {
 				nextTaskId = t.getId();
 			}
@@ -78,18 +86,20 @@ public class DataProviderImpl implements DataProvider {
 		 * Set the id and add task.
 		 */
 		task.setId(nextTaskId);
-		writable.add(task);
+		openTasksWritable.add(task);
 		
 		return task;
 	}
 
 	@Override
 	public void closeTask(Long id) {
-		ListIterator<Task> iterator = writable.listIterator();
+		ListIterator<Task> iterator = openTasksWritable.listIterator();
 		while(iterator.hasNext()) {
 			Task t = iterator.next();
 			if(t.getId() == id) {
 				t.setStatus(TaskStatus.CLOSED);
+				closedTasksWritable.add(t);
+				openTasksWritable.remove(t);
 				break;
 			}
 		}
@@ -102,11 +112,11 @@ public class DataProviderImpl implements DataProvider {
 
 	@Override
 	public void removeTask(Long id) {
-		ListIterator<Task> iterator = writable.listIterator();
+		ListIterator<Task> iterator = closedTasksWritable.listIterator();
 		while(iterator.hasNext()) {
 			Task t = iterator.next();
 			if(t.getId() == id) {
-				writable.remove(t);
+				closedTasksWritable.remove(t);
 				break;
 			}
 		}

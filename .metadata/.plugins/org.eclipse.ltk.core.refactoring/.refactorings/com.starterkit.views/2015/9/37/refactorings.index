@@ -2,3 +2,6 @@
 1441632773173	Rename local variable 'delete'
 1441635829801	Delete element
 1441635833777	Delete element
+1441701623706	Rename field 'tasks'
+1441701640715	Rename field 'writable'
+1441701867942	Rename method 'getWritable'

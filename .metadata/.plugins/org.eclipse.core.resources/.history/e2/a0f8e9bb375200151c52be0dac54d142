@@ -1,7 +1,0 @@
-package com.starterkit.views.dataprovider.impl;
-
-import com.starterkit.views.dataprovider.DataProvider;
-
-public class DataProviderImpl implements DataProvider {
-
-}

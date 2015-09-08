@@ -127,7 +127,7 @@ public class OpenedTasksViewPart extends ViewPart {
 				"Due date", 80);
 
 		tableViewer.setContentProvider(new ObservableListContentProvider());
-		input = DataProviderImpl.getInstance().getWritable();
+		input = DataProviderImpl.getInstance().getOpenTasksWritable();
 		ViewerSupport.bind(
 				tableViewer,
 				input,
